@@ -6,6 +6,18 @@ class Player {
     this.soundObject = new buzz.sound(this.currentlyPlaying.soundFileUrl);
   }
 
+  prettyTime(timeInSeconds) {
+    if (timeInSeconds <= 60) {
+      const newTime = 0 + ":" + Math.trunc(timeInSeconds);
+    $('#time-control .current-time').text( newTime );}
+    else {
+      const minutes = Math.trunc (timeInSeconds / 60);
+      const seconds = Math.floor(timeInSeconds - (minutes*60));
+      const newTime = minutes + ":" + seconds;
+      $('#time-control .current-time').text( newTime );
+      }
+    }
+
   getDuration() {
     return this.soundObject.getDuration();
   }
@@ -36,6 +48,7 @@ class Player {
       this.playState = 'paused';
       this.currentlyPlaying.element.removeClass('playing').addClass('paused');
     }
+
   }
 
   skipTo (percent) {
@@ -47,6 +60,7 @@ class Player {
     this.volume = percent;
     this.soundObject.setVolume(percent);
   }
+
 }
 
 const player = new Player();
